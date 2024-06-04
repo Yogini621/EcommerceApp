@@ -1,48 +1,53 @@
-import { View, Text, TextInput,StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { editTask } from '../redux/actions/Todoactions';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {editTask} from '../redux/actions/Todoactions';
 
-interface Props{
-    navigation:any;
-    route:any
+interface Props {
+  navigation: any;
+  route: any;
 }
-
-export const EditTodo:React.FC<Props> = ({navigation,route}) => {
-const {todo} = route.params
-const [text,setText] = useState(todo.text)
-const [id,setId] = useState(todo.id)
+export const EditTodo: React.FC<Props> = ({navigation, route}) => {
+  const {todo} = route.params;
+  const [text, setText] = useState(todo.text);
+  const [id, setId] = useState(todo.id);
   const dispatch = useDispatch();
 
-
-const handleEditTodo = (id :number,newText:string) => {
+  const handleEditTodo = (id: number, newText: string) => {
     const updateUser = {
       newText,
       id,
     };
-console.log(updateUser);
+    console.log(updateUser);
 
-    dispatch(editTask(id,newText))
-    navigation.navigate('Todolist',{updateUser})
-
-}
+    dispatch(editTask(id, newText));
+    navigation.navigate('Todolist', {updateUser});
+  };
 
   return (
     <View>
       <TextInput
         placeholder="EditTodo"
-        onChangeText={(newtext) => setText(newtext)}
+        onChangeText={newtext => setText(newtext)}
         value={text}
         style={styles.input}
       />
-      <TouchableOpacity style={styles.button} onPress={() => handleEditTodo(id,text)}>
-        <Text style = {styles.buttonText}>Update</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => handleEditTodo(id, text)}>
+        <Text style={styles.buttonText}>Update</Text>
       </TouchableOpacity>
     </View>
   );
-}
+};
 
-export default EditTodo
+export default EditTodo;
 
 const styles = StyleSheet.create({
   input: {
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
     width: '90%',
     marginTop: '4%',
   },
-  buttonText:{
-    color:'white'
-  }
+  buttonText: {
+    color: 'white',
+  },
 });
